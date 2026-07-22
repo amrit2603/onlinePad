@@ -1,0 +1,66 @@
+/* ========================================= */
+/* THEME OVERRIDES FOR CHAT PANEL            */
+/* ========================================= */
+
+/* Main chat background */
+.chat-container, .chat-panel {
+  background-color: var(--bg-panel) !important;
+  color: var(--text-main) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* The "Team Chat" Header */
+.chat-header {
+  background-color: var(--bg-panel) !important;
+  color: var(--text-main) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* The message history area */
+.chat-messages {
+  background-color: var(--bg-panel) !important;
+}
+
+/* The input box at the bottom */
+.chat-input-container, .chat-input-area {
+  background-color: var(--bg-main) !important;
+  border-top: 1px solid var(--border-color) !important;
+}
+
+/* The actual typing field */
+.chat-input {
+  background-color: var(--bg-panel) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color) !important;
+}
+/* ========================================= */
+/* CHAT ICONS & BUTTONS DARK MODE FIX        */
+/* ========================================= */
+
+/* 1. Force the text/icon color to match the theme */
+.chat-input-area button, 
+.chat-input-container button {
+  color: var(--text-main) !important;
+}
+
+/* 2. If the mic icon is an SVG */
+.chat-input-area svg,
+.chat-input-container svg {
+  fill: var(--text-main) !important;
+  /* If it uses strokes instead of fills: */
+  stroke: var(--text-main) !important; 
+}
+
+/* 3. Fix the background circle (if the mic has one) */
+.chat-input-area button, 
+.chat-input-container button {
+  /* If your mic button has a background color, this syncs it */
+  background-color: var(--btn-bg) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* 4. The Hover Effect */
+.chat-input-area button:hover, 
+.chat-input-container button:hover {
+  opacity: 0.8;
+}

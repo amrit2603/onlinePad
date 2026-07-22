@@ -1,0 +1,144 @@
+/* ========================================= */
+/* 1. UNIVERSAL RESET & WINDOWS THEME        */
+/* ========================================= */
+* { box-sizing: border-box; }
+
+:root {
+  /* Windows Light Mode */
+  --bg-main: #f3f3f3;
+  --bg-panel: #ffffff;
+  --text-main: #202020;
+  --border-color: #e5e5e5;
+  --header-bg: #ffffff;
+  --btn-bg: #f3f3f3;
+  --btn-text: #202020;
+  --accent-color: #0078d4; /* Windows Blue */
+}
+
+/* Explicitly target the body tag when it has dark mode */
+body.dark-mode {
+  /* Windows Dark Mode */
+  --bg-main: #202020;
+  --bg-panel: #2d2d2d;
+  --text-main: #ffffff;
+  --border-color: #444444;
+  --header-bg: #2d2d2d;
+  --btn-bg: #3d3d3d;
+  --btn-text: #ffffff;
+  --accent-color: #4da8da; 
+}
+
+/* Only apply backgrounds to body and #root so html doesn't trap light colors */
+body {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  overflow-x: hidden; /* Prevents horizontal scrollbars */
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* ========================================= */
+/* 2. MAIN DESKTOP LAYOUT                    */
+/* ========================================= */
+.app-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Hide mobile tabs on desktop */
+.mobile-tabs { 
+    display: none; 
+}
+
+.slider-container {
+    display: flex;
+    gap: 20px;
+    height: 100%;
+    width: 100%;
+}
+
+.panel {
+    height: 560px;
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    /* Windows-style soft shadow */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); 
+}
+
+.chat-panel { flex: 1; min-width: 300px; }
+.editor-panel { flex: 2; min-width: 0; }
+
+.editor-canvas {
+    height: calc(100% - 60px);
+    background-color: var(--bg-panel);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+
+/* ========================================= */
+/* 3. QUILL EDITOR DARK MODE FIXES           */
+/* ========================================= */
+body.dark-mode .ql-toolbar {
+  background-color: #2d2d2d;
+  border-color: var(--border-color);
+}
+body.dark-mode .ql-toolbar button {
+  filter: invert(1); /* Makes the toolbar icons white */
+}
+body.dark-mode .ql-container {
+  background-color: var(--bg-panel);
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+body.dark-mode .ql-editor.ql-blank::before {
+  color: #888; /* Placeholder text color */
+}
+
+/* ========================================= */
+/* 4. MOBILE LAYOUT & SWIPE EFFECT           */
+/* ========================================= */
+@media (max-width: 768px) {
+  .app-wrapper { padding: 0; }
+  
+  /* Show the tabs only on mobile */
+  .mobile-tabs {
+    display: flex; justify-content: center; gap: 10px; padding: 10px;
+    background-color: var(--bg-panel); border-bottom: 1px solid var(--border-color); z-index: 10;
+    width: 100%;
+  }
+  .mobile-tab-btn {
+    padding: 6px 16px; border-radius: 20px; border: 1px solid var(--accent-color);
+    background: transparent; color: var(--accent-color); font-weight: bold; cursor: pointer;
+  }
+  .mobile-tab-btn:active { background: var(--accent-color); color: #fff; }
+
+  /* Turn the container into a swipable track */
+  .slider-container {
+    gap: 0; overflow-x: auto; scroll-snap-type: x mandatory;
+    scroll-behavior: smooth; -webkit-overflow-scrolling: touch; width: 100%;
+  }
+  .slider-container::-webkit-scrollbar { display: none; }
+  .slider-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Make panels take exactly 100% of the screen width */
+  .panel {
+    flex: 0 0 100%; scroll-snap-align: center; padding: 15px; 
+    height: calc(100dvh - 55px); 
+  }
+}
